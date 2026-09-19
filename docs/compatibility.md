@@ -1,38 +1,59 @@
 # Host and output compatibility
 
-Coursecraft contains one shared skill with separate Codex and Claude Code plugin manifests. The workflow is expressed in Markdown instructions and supporting resources. The host supplies the model, tools, authentication, permissions, and conversation interface.
+Coursecraft contains one shared skill with separate native plugin manifests for ChatGPT/Codex and Claude Code. The workflow is expressed in Markdown instructions and supporting resources. The host supplies the model, tools, authentication, permissions, and conversation interface.
 
-Installation guidance was checked against official documentation on **2026-09-19**. Package checks validate manifests, skill metadata, and skill resource references; they do not establish that the plugin has been loaded and exercised in every host or client version.
+The intended user experience is **native plugin distribution**: users install Coursecraft from the plugin directory or other host-provided plugin UI. Repository checkout, skill copying, and local plugin loading are development and pre-distribution testing mechanisms only.
 
-## Host matrix
+Packaging guidance was checked against official documentation on **2026-09-19**. Package checks validate manifests, skill metadata, and skill resource references; they do not establish that a plugin has been accepted into a directory or exercised in every host/client version.
 
-| Host or installation | Package entry | Invocation | Scope |
+## Distribution model
+
+| Host | Primary user path | Package entry | Development fallback |
 | --- | --- | --- | --- |
-| Codex CLI / IDE standalone skill | `~/.agents/skills/coursecraft/SKILL.md` or a project's `.agents/skills/coursecraft/SKILL.md` | `$coursecraft <request>` | The documented local skill route |
-| Codex plugin | `.codex-plugin/plugin.json` with `skills/` | Select the installed skill using the host's selector | Packaged; requires a configured distribution or local marketplace route |
-| Claude Code local plugin | `.claude-plugin/plugin.json` with `skills/` | `/coursecraft:coursecraft <request>` | Load the repository using `claude --plugin-dir /absolute/path/to/coursecraft` |
-| Claude Code standalone skill | `~/.claude/skills/coursecraft/SKILL.md` or a project's `.claude/skills/coursecraft/SKILL.md` | `/coursecraft <request>` | Copy the entire shared skill directory |
-| ChatGPT | A plugin made available to the account | Select the available plugin or skill in the host | No published directory listing or account installation is provided by this repository |
+| ChatGPT / Codex plugin surfaces | Install/select Coursecraft through the native plugin UI | `.codex-plugin/plugin.json` with `skills/` | Local marketplace/plugin testing or standalone skill |
+| Claude Code plugin surfaces | Install Coursecraft through the native plugin ecosystem | `.claude-plugin/plugin.json` with `skills/` | `claude --plugin-dir /absolute/path/to/coursecraft` |
+| Codex standalone skill | Not the primary distribution path | `skills/coursecraft/` | Copy to `~/.agents/skills/coursecraft/` or project `.agents/skills/coursecraft/` |
+| Claude Code standalone skill | Not the primary distribution path | `skills/coursecraft/` | Copy to `~/.claude/skills/coursecraft/` or project `.claude/skills/coursecraft/` |
 
-Codex's skill locations and `$` invocation are documented in [Build skills](https://learn.chatgpt.com/docs/build-skills). Claude Code documents both [personal/project skills](https://code.claude.com/docs/en/skills#choose-where-skills-load) and [namespaced plugin skills](https://code.claude.com/docs/en/plugins#quickstart). A bare `/coursecraft` is therefore not a universal plugin command.
+A GitHub repository and valid manifest are packaging prerequisites, not publication. Native availability still depends on the host's distribution, submission, review, workspace, and/or marketplace process. The repository therefore must not tell ordinary users that cloning it is required to install Coursecraft.
 
-## Local installation
+OpenAI documents plugin construction and distribution in [Build plugins](https://learn.chatgpt.com/docs/build-plugins#create-a-plugin-with-plugin-creator) and [Plugins](https://learn.chatgpt.com/docs/plugins). Codex standalone skills remain useful for development and are documented in [Build skills](https://learn.chatgpt.com/docs/build-skills). Claude Code documents [plugins](https://code.claude.com/docs/en/plugins#quickstart) and [skills](https://code.claude.com/docs/en/skills#choose-where-skills-load).
 
-The [README](../README.md#quick-start) gives complete clone-and-copy commands. Copy all of `skills/coursecraft/`, including its supporting resources. Copying only `SKILL.md` leaves referenced files behind.
+## Invocation
 
-For Codex, a user installation belongs in `~/.agents/skills/coursecraft/`; a project installation belongs in `.agents/skills/coursecraft/`. Codex detects skill changes, with restart as the fallback if a change does not appear. See [local discovery and installation](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills).
+Native plugin selection is the canonical invocation mechanism. Documentation may use `/coursecraft <request>` as readable shorthand for “invoke the installed Coursecraft plugin with this request”; it must not imply that every host exposes that exact command syntax.
 
-For Claude Code, `--plugin-dir` loads a local plugin for a session without a marketplace install. Invoke the skill as `/coursecraft:coursecraft`, because the manifest and skill are both named `coursecraft`. The standalone copy exposes `/coursecraft`. Claude's documentation describes [local loading and plugin namespaces](https://code.claude.com/docs/en/plugins#test-your-plugins-locally).
+Host-specific development invocation can differ:
 
-Use one route per host. Installing the standalone skill and loading the plugin together can expose duplicate Coursecraft entries. When updating a copied skill, copy its resources as well and preserve any local customizations you want to keep.
+- Codex standalone skill: `$coursecraft <request>`.
+- Claude Code local plugin: `/coursecraft:coursecraft <request>`.
+- Claude Code standalone skill: `/coursecraft <request>`.
 
-## Codex packaging and distribution
+When Coursecraft is installed natively, prefer the host's plugin selector, mention, command, or conversation UI rather than asking users to know filesystem locations.
 
-The `.codex-plugin/plugin.json` manifest uses the compatibility format generated by OpenAI's plugin creator. Official documentation supports that format and recommends local marketplace testing before distribution. See [Build plugins](https://learn.chatgpt.com/docs/build-plugins#create-a-plugin-with-plugin-creator).
+## Development and local testing
 
-For plugin development, ask the installed `$plugin-creator` to add this checkout to a local marketplace, then install it from that source and test in a new conversation. This repository does not create or alter the user's marketplace configuration. The standalone skill installation is the short path for trying the workflow.
+Local installation exists to test a checkout before native distribution.
 
-Public distribution and workspace distribution are separate setup steps. A GitHub repository and a manifest do not themselves create a public listing or enable the plugin in a ChatGPT account. OpenAI describes the [supported plugin surfaces and installation flow](https://learn.chatgpt.com/docs/plugins). The Codex IDE extension supports standalone skills but does not support plugins according to that documentation.
+For Codex, a standalone development copy can live in `~/.agents/skills/coursecraft/` or a project's `.agents/skills/coursecraft/`. Copy the complete `skills/coursecraft/` directory, including supporting resources. See [local skill discovery](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills).
+
+For Claude Code, `--plugin-dir` loads this repository as a local plugin for a session. Invoke that development plugin as `/coursecraft:coursecraft`. A standalone development copy can instead live in `~/.claude/skills/coursecraft/`. See [local plugin testing](https://code.claude.com/docs/en/plugins#test-your-plugins-locally).
+
+Use one development route per host. Loading both the plugin and standalone skill can expose duplicate Coursecraft entries.
+
+## ChatGPT/Codex packaging
+
+The `.codex-plugin/plugin.json` manifest is the native package metadata. The package includes the shared `skills/` tree and intentionally has no installer script or runtime bootstrap service.
+
+For pre-publication plugin testing, use the host's supported local marketplace/plugin development flow. Public or workspace distribution is a separate host-side step; this repository does not claim that Coursecraft is currently listed merely because the manifest exists.
+
+The README should be written from the eventual user's perspective:
+
+1. Install Coursecraft from the native plugin directory.
+2. Select/invoke Coursecraft.
+3. Ask for a course.
+
+Clone/copy instructions belong under development, not Quick Start.
 
 ## Tools and execution
 
@@ -64,14 +85,14 @@ Before publishing separate chapter documents, resolve their relative links to th
 
 ## What verification establishes
 
-The repository validator checks manifests, skill metadata, and references to skill resources. It does not validate course artifacts, all documentation links, external source availability, or generated explanations. Those need separate review. A structural check also cannot prove that a live assistant will follow every instruction.
+The repository validator checks manifests, skill metadata, and references to skill resources. It does not validate native directory publication, host approval, course artifacts, all documentation links, external source availability, or generated explanations. Those need separate review. A structural check also cannot prove that a live assistant will follow every instruction.
 
 For a host smoke test, create a short course from accessible supplied material, then confirm:
 
-1. The intended Coursecraft skill loaded and its supporting resources were available.
-2. The requested output files exist in the chosen destination.
+1. The intended Coursecraft plugin/skill loaded and its supporting resources were available.
+2. The requested output exists in the host's expected artifact or filesystem destination.
 3. The course follows the outline and cites the supplied material accurately.
 4. Optional practice appears only when requested, with answers consistent with the lessons.
 5. Study or quiz mode uses the saved course rather than inventing its contents.
 
-No live client execution is claimed by the installation documentation itself.
+No live directory publication or client execution is claimed by the repository documentation itself.
