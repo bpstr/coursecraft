@@ -1,0 +1,14 @@
+{
+  "name": "coursecraft",
+  "version": "0.1.0",
+  "description": "Turn topics and source material into structured Markdown courses with connected lessons and optional practice.",
+  "author": {
+    "name": "Fent Jani",
+    "url": "https://github.com/bpstr"
+  },
+  "homepage": "https://github.com/bpstr/coursecraft",
+  "repository": "https://github.com/bpstr/coursecraft",
+  "license": "MIT",
+  "keywords": ["learning", "courses", "research", "markdown", "unpage"],
+  "skills": "./skills/"
+}

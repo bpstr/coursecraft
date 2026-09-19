@@ -1,0 +1,15 @@
+{
+  "name": "coursecraft",
+  "owner": {
+    "name": "Fent Jani",
+    "url": "https://github.com/bpstr"
+  },
+  "plugins": [
+    {
+      "name": "coursecraft",
+      "source": "./",
+      "description": "Turn topics and source material into structured Markdown courses with connected lessons and optional practice.",
+      "version": "0.1.0"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "coursecraft",
+  "version": "0.1.0",
+  "description": "Turn topics and source material into structured Markdown courses with connected lessons and optional practice.",
+  "author": {
+    "name": "Fent Jani",
+    "url": "https://github.com/bpstr"
+  },
+  "homepage": "https://github.com/bpstr/coursecraft",
+  "repository": "https://github.com/bpstr/coursecraft",
+  "license": "MIT",
+  "keywords": ["learning", "courses", "research", "markdown", "unpage"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Coursecraft",
+    "shortDescription": "Turn knowledge into learning courses.",
+    "longDescription": "Research a topic or work from your own sources, arrange a learning path, and write connected lessons. Export portable Markdown with source references, optional exercises, and quizzes, then study the material in your assistant.",
+    "developerName": "Fent Jani",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write", "Interactive"],
+    "websiteURL": "https://github.com/bpstr/coursecraft",
+    "defaultPrompt": [
+      "Create a beginner course from a topic I want to learn.",
+      "Turn my documents into a practical onboarding course.",
+      "Quiz me on a course, one question at a time."
+    ]
+  }
+}
