@@ -1,0 +1,4 @@
+interface:
+  display_name: "Coursecraft"
+  short_description: "Turn topics and source material into learning courses"
+  default_prompt: "Use $coursecraft to create a course from a topic or my source material."

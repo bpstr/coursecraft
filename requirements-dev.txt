@@ -1,0 +1,2 @@
+# Repository validation only; using the plugin needs no Python dependencies.
+PyYAML==6.0.3
