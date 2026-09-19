@@ -18,7 +18,7 @@ Until Coursecraft is available in the public plugin directories, install it dire
 codex plugin marketplace add bpstr/coursecraft
 ```
 
-Then restart the ChatGPT desktop app, open **Plugins**, choose the **Coursecraft** marketplace, and install **Coursecraft**. The repository now includes `.agents/plugins/marketplace.json`, so the Git repository itself is the marketplace source. citeturn0search0
+Then restart the ChatGPT desktop app, open **Plugins**, choose the **Coursecraft** marketplace, and install **Coursecraft**. The repository now includes `.agents/plugins/marketplace.json`, so the Git repository itself is the marketplace source.
 
 **Claude Code**
 
