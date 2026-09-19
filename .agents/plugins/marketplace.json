@@ -1,0 +1,20 @@
+{
+  "name": "coursecraft",
+  "interface": {
+    "displayName": "Coursecraft"
+  },
+  "plugins": [
+    {
+      "name": "coursecraft",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
