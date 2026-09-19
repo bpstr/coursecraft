@@ -8,9 +8,32 @@ Coursecraft is packaged as a native AI plugin. It uses the host's model, researc
 
 ## Install
 
+### Pre-release: Git marketplace
+
+Until Coursecraft is available in the public plugin directories, install it directly from this GitHub repository through the hosts' marketplace support.
+
+**ChatGPT / Codex**
+
+```bash
+codex plugin marketplace add bpstr/coursecraft
+```
+
+Then restart the ChatGPT desktop app, open **Plugins**, choose the **Coursecraft** marketplace, and install **Coursecraft**. The repository now includes `.agents/plugins/marketplace.json`, so the Git repository itself is the marketplace source. citeturn0search0
+
+**Claude Code**
+
+Inside Claude Code, add the GitHub repository as a plugin marketplace, then install Coursecraft from that marketplace:
+
+```text
+/plugin marketplace add bpstr/coursecraft
+/plugin install coursecraft@coursecraft
+```
+
+The repository includes `.claude-plugin/marketplace.json` alongside the Claude plugin manifest. This keeps the pre-release experience marketplace-based rather than requiring users to copy skill files.
+
 ### ChatGPT and Codex
 
-**Install Coursecraft from the plugin directory.**
+**After public release, install Coursecraft from the plugin directory.**
 
 Once Coursecraft is available in your account or workspace, install/select it from the host's plugin UI and start using it in a conversation. There is no repository clone, shell installer, or manual skill copy in the normal user flow.
 
@@ -33,7 +56,7 @@ The exact invocation UI can vary by host surface. Selecting the installed Course
 
 ### Claude Code
 
-Coursecraft also includes native Claude Code plugin packaging. Distribution through Claude's plugin ecosystem is the intended user installation path. Local checkout loading is documented under [Development and local testing](#development-and-local-testing), not as the normal install experience.
+Coursecraft also includes native Claude Code plugin packaging. Until public distribution, use the Git marketplace commands above. After release, distribution through Claude's plugin ecosystem is the intended user installation path. Local checkout loading is documented under [Development and local testing](#development-and-local-testing), not as the normal install experience.
 
 > **Distribution status:** the repository contains the native plugin manifests and package, but a GitHub repository alone does not publish a plugin into a host directory. Until Coursecraft is submitted/approved and made available by the relevant host, the native listing may not yet be visible.
 
@@ -136,7 +159,9 @@ These checks validate package structure and resource references; they do not pro
 
 | Path | Purpose |
 | --- | --- |
+| `.agents/plugins/marketplace.json` | Codex/ChatGPT pre-release marketplace catalog |
 | `.codex-plugin/plugin.json` | ChatGPT/Codex plugin metadata |
+| `.claude-plugin/marketplace.json` | Claude Code pre-release marketplace catalog |
 | `.claude-plugin/plugin.json` | Claude Code plugin metadata |
 | `skills/coursecraft/` | Shared skill instructions and supporting resources |
 | `examples/` | Source material and a sample course |
